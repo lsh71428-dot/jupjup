@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>JupJup 타로 · 타로 리딩 신청</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#fff;--gray:#f5f5f7;--card:#fff;--ink:#1d1d1f;--mute:#6e6e73;--blue:#0071e3;--line:#d2d2d7;--nav:rgba(255,255,255,.8)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000;--gray:#161617;--card:#1d1d1f;--ink:#f5f5f7;--mute:#a1a1a6;--blue:#2997ff;--line:#424245;--nav:rgba(22,22,23,.8)}}
+:root[data-theme="dark"]{--bg:#000;--gray:#161617;--card:#1d1d1f;--ink:#f5f5f7;--mute:#a1a1a6;--blue:#2997ff;--line:#424245;--nav:rgba(22,22,23,.8)}
+html{scroll-padding-top:calc(60px + env(safe-area-inset-top,0px));scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro KR","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--nav);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);z-index:10}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:11;height:44px;background:var(--nav);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);display:flex;align-items:center;justify-content:center;gap:clamp(16px,4vw,40px);font-size:12px}
+nav a{color:var(--ink);text-decoration:none;opacity:.85}
+nav a:hover{opacity:1}
+nav .logo{font-weight:700;font-size:14px;opacity:1}
+.w{max-width:1040px;margin:0 auto;padding:0 22px}
+.head{padding:56px 0 24px}
+h1{font-size:clamp(36px,7vw,56px);line-height:1.08;margin:0;letter-spacing:-.02em;font-weight:700}
+.head p{font-size:clamp(17px,2.4vw,21px);color:var(--mute);margin:10px 0 0;font-weight:600}
+.tiles{display:flex;gap:10px;overflow-x:auto;padding:24px 0 36px;scrollbar-width:none}
+.tiles::-webkit-scrollbar{display:none}
+.tile{flex:0 0 auto;min-width:120px;text-align:center;background:none;border:0;color:var(--ink);font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.tile i{display:grid;place-items:center;width:84px;height:84px;margin:0 auto 10px;border-radius:50%;background:var(--gray);font-style:normal;font-size:34px}
+h2{font-size:clamp(26px,4.4vw,36px);letter-spacing:-.01em;margin:0 0 4px;font-weight:700}
+h2 + .lead{color:var(--mute);font-size:19px;font-weight:600;margin:0 0 28px}
+.gray{background:var(--gray);padding:64px 0}
+.plain{padding:64px 0}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.pc{background:var(--card);border-radius:28px;padding:32px 28px;display:flex;flex-direction:column;min-height:380px}
+.tag{font-size:12px;font-weight:700;color:#bf4800;min-height:18px}
+@media (prefers-color-scheme:dark){.tag{color:#ff9f0a}}
+.pc h3{font-size:28px;margin:4px 0 6px;letter-spacing:-.01em}
+.pc p{color:var(--mute);margin:0;font-size:15px}
+.art{flex:1;display:grid;place-items:center;font-size:84px;margin:12px 0}
+.price{font-size:14px;margin:0 0 14px;color:var(--ink)}
+.btn{display:inline-block;background:var(--blue);color:#fff;border:0;border-radius:980px;padding:11px 22px;font:inherit;font-size:15px;font-weight:500;cursor:pointer;text-decoration:none;align-self:flex-start}
+.btn.alt{background:transparent;color:var(--blue);border:1px solid var(--blue)}
+.btn:hover{filter:brightness(1.1)}
+.step{background:var(--card);border-radius:24px;padding:26px}
+.step b{display:block;font-size:34px;margin-bottom:6px;color:var(--blue)}
+.step p{margin:0;color:var(--mute);font-size:15px}
+.form{background:var(--card);border-radius:28px;padding:32px 28px;max-width:640px}
+label{display:block;font-weight:600;margin:16px 0 6px;font-size:14px}
+input,select,textarea{width:100%;background:var(--gray);color:var(--ink);border:1px solid transparent;border-radius:12px;padding:13px 14px;font:inherit;font-size:16px;outline:0}
+input:focus,select:focus,textarea:focus{border-color:var(--blue)}
+textarea{min-height:110px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+#out{display:none;margin-top:20px;white-space:pre-wrap;background:var(--gray);border-radius:12px;padding:14px;font-size:14px}
+#acct{display:none;margin-top:16px;border:2px solid var(--blue);border-radius:16px;padding:18px}
+#acct b{color:var(--blue)}
+#acct .big{font-size:20px;font-weight:700;margin:6px 0;word-break:break-all}
+.note{color:var(--mute);font-size:13px;margin-top:10px}
+details{border-bottom:1px solid var(--line);padding:16px 0;max-width:720px}
+summary{cursor:pointer;font-weight:600;font-size:17px}
+details p{margin:8px 0 0;color:var(--mute)}
+footer{background:var(--gray);color:var(--mute);font-size:12px;padding:20px 0 36px;border-top:1px solid var(--line)}
+footer p{margin:6px 0}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="#top">JupJup 타로</a>
+  <a href="#menu">메뉴</a>
+  <a href="#how">진행 방식</a>
+  <a href="#apply">신청</a>
+  <a href="#faq">FAQ</a>
+</nav>
+
+<main id="top">
+  <div class="w">
+    <div class="head">
+      <h1>타로 스토어.</h1>
+      <p>마음이 복잡할 때, 카드 한 장으로 시작하세요.</p>
+    </div>
+    <div class="tiles">
+      <button class="tile" data-i="0" type="button"><i>☽</i>원카드</button>
+      <button class="tile" data-i="1" type="button"><i>✦</i>두카드</button>
+      <button class="tile" data-i="2" type="button"><i>✧</i>쓰리카드</button>
+    </div>
+  </div>
+
+  <section class="gray" id="menu">
+    <div class="w">
+      <h2>리딩 메뉴.</h2>
+      <p class="lead">지금 고민에 꼭 맞는 방식으로.</p>
+      <div class="grid">
+        <div class="pc"><span class="tag">입문</span><h3>원카드</h3><p>오늘의 흐름이나 한 가지 질문에 대한 답을 가볍게 확인해요.</p><div class="art">☽</div><p class="price">1,000원</p><button class="btn" data-i="0" type="button">신청하기</button></div>
+        <div class="pc"><span class="tag"></span><h3>두카드</h3><p>두 가지 선택지, 혹은 두 사람의 관계를 비교하며 풀어요.</p><div class="art">✦</div><p class="price">3,000원</p><button class="btn" data-i="1" type="button">신청하기</button></div>
+        <div class="pc"><span class="tag">인기</span><h3>쓰리카드</h3><p>과거·현재·미래, 또는 상황·장애물·조언으로 흐름을 깊이 살펴봐요.</p><div class="art">✧</div><p class="price">5,000원</p><button class="btn" data-i="2" type="button">신청하기</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="plain" id="how">
+    <div class="w">
+      <h2>진행 방식.</h2>
+      <p class="lead">신청부터 결과까지, 세 단계면 충분해요.</p>
+      <div class="grid">
+        <div class="step"><b>1</b><p>신청서를 작성하면 입금 계좌가 바로 나와요.</p></div>
+        <div class="step"><b>2</b><p>안내된 금액을 입금하고, 신청 내용을 복사해서 제 쓰레드 DM으로 보내 주세요. DM을 받아야 리딩이 진행돼요.</p></div>
+        <div class="step"><b>3</b><p>입금이 확인되면 리딩 결과를 쓰레드 DM으로 보내드려요.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gray" id="apply">
+    <div class="w">
+      <h2>리딩 신청.</h2>
+      <p class="lead">정성껏 적어 주실수록 리딩이 또렷해져요.</p>
+      <div class="form">
+        <label for="name">이름</label>
+        <input id="name" autocomplete="nickname">
+        <label for="threads">쓰레드 아이디</label>
+        <input id="threads" placeholder="@username" autocapitalize="none" autocorrect="off">
+        <label for="contact">추가 연락처 (선택, 카카오톡 ID 또는 이메일)</label>
+        <input id="contact">
+        <label for="svc">메뉴</label>
+        <select id="svc">
+          <option>원카드 (1,000원)</option>
+          <option>두카드 (3,000원)</option>
+          <option selected>쓰리카드 (5,000원)</option>
+        </select>
+        <label for="cat">고민 분야</label>
+        <select id="cat">
+          <option>연애·관계</option><option>진로·직업</option><option>재물·금전</option><option>건강·마음</option><option>기타</option>
+        </select>
+        <label for="q">질문 내용</label>
+        <textarea id="q" placeholder="상황을 간단히 적어 주세요."></textarea>
+        <div class="row"><button class="btn" id="mk" type="button">신청 내용 만들기</button></div>
+        <div id="out"></div>
+        <div id="acct"></div>
+        <div class="row" id="act" style="display:none">
+          <button class="btn" id="cp" type="button">내용 복사하기</button>
+        </div>
+        <p class="note" id="tip" style="display:none">신청 내용을 복사해서 쓰레드 DM으로 보내 주세요. DM을 받아야 리딩이 진행돼요.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="plain" id="faq">
+    <div class="w">
+      <h2>자주 묻는 질문.</h2>
+      <p class="lead">궁금한 점을 미리 확인해 보세요.</p>
+      <details><summary>타로는 미래를 확정해서 알려 주나요?</summary><p>타로는 현재의 흐름과 선택지를 돌아보는 도구예요. 결과는 참고용이며, 중요한 의료·법률·재정 결정은 전문가와 상의해 주세요.</p></details>
+      <details><summary>결과는 얼마나 걸리나요?</summary><p>입금 확인 후 보통 24시간 안에 전달해 드려요.</p></details>
+      <details><summary>환불이 되나요?</summary><p>리딩 시작 전에는 전액 환불이 가능하고, 진행 후에는 어려워요.</p></details>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="w">
+    <p>JupJup 타로의 리딩은 오락 및 자기 성찰 목적으로 제공되며, 의료·법률·재정 조언을 대신하지 않습니다.</p>
+    <p>Copyright © JupJup 타로. 모든 권리 보유.</p>
+  </div>
+</footer>
+
+<script>
+// 여기를 본인 정보로 바꿔 주세요
+var BANK = "카카오뱅크", ACCT = "3333-28-9862220", HOLDER = "이재혁";
+var $ = function(id){return document.getElementById(id)};
+var text = "";
+Array.prototype.forEach.call(document.querySelectorAll("[data-i]"), function(b){
+  b.onclick = function(){ $("svc").selectedIndex = +b.getAttribute("data-i"); $("apply").scrollIntoView(); };
+});
+$("mk").onclick = function(){
+  var n = $("name").value.trim(), t = $("threads").value.trim(), c = $("contact").value.trim(), q = $("q").value.trim();
+  if(!n || !t || !q){ alert("이름, 쓰레드 아이디, 질문 내용을 입력해 주세요."); return; }
+  if(t.charAt(0) !== "@") t = "@" + t;
+  text = "[JupJup 타로 리딩 신청]\n이름: " + n + "\n쓰레드: " + t + (c ? "\n추가 연락처: " + c : "") + "\n메뉴: " + $("svc").value + "\n분야: " + $("cat").value + "\n질문: " + q;
+  $("out").textContent = text;
+  $("out").style.display = "block";
+  $("act").style.display = "flex";
+  $("tip").style.display = "block";
+  var m = $("svc").value.match(/\(([\d,]+)원\)/);
+  var a = $("acct");
+  a.innerHTML = "<b>입금 안내</b><div class='big'></div><div id='amt'></div><div class='note'>입금자명은 신청서의 이름과 같게 해 주세요.</div><div style='margin-top:14px;padding:14px;border-radius:12px;background:#ff3b30;color:#fff;font-size:18px;font-weight:800;line-height:1.4'>‼️ 입금하셨다면 제 쓰레드로 복사한 내용을 꼭 알려주세요!!!<div style='font-size:14px;font-weight:600;margin-top:4px'>DM을 받아야 리딩을 시작할 수 있어요.</div></div><button class='btn alt' id='cpa' type='button' style='margin-top:10px'>계좌번호 복사</button>";
+  a.querySelector(".big").textContent = BANK + " " + ACCT + " (" + HOLDER + ")";
+  $("amt").textContent = "입금 금액: " + (m ? m[1] : "") + "원";
+  a.style.display = "block";
+  $("cpa").onclick = function(){ try{ navigator.clipboard.writeText(ACCT).then(function(){ $("cpa").textContent = "복사 완료 ✓"; }); }catch(e){} };
+  };
+$("cp").onclick = function(){
+  var done = function(){ $("cp").textContent = "복사 완료 ✓"; };
+  try{ navigator.clipboard.writeText(text).then(done, function(){ window.getSelection().selectAllChildren($("out")); }); }
+  catch(e){ window.getSelection().selectAllChildren($("out")); }
+};
+</script>
+</body>
+</html>
